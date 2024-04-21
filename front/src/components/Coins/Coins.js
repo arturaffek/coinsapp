@@ -83,7 +83,7 @@ class Notes extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
     async fetchNotes() {
-        const res = await axios.get('http://localhost:3001/api/notes')
+        const res = await axios.get(`${REACT_APP_BACKEND_URL}notes`)
         const notes = res.data;
         this.setState({notes});
         this.setState({coins: notes})
