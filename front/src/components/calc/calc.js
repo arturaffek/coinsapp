@@ -30,7 +30,7 @@ function Calc({coines,buyArr,sellArr}) {
       fetchCurrencyData()
     }, [])
       const fetchEuroRate = () => {
-		    fetch(" http://api.nbp.pl/api/exchangerates/rates/a/eur/?format=json")
+		    fetch(" https://api.nbp.pl/api/exchangerates/rates/a/eur/?format=json")
           .then(response => {
           return response.json()
           })
