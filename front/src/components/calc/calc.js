@@ -5,32 +5,13 @@ import Charts  from "../charts/chart";
 
 function Calc({coines,buyArr,sellArr}) {
     const [euro, setEuro] = useState([])
-    const [currencies, setCurrency] = useState([])
     const [incArr, setincomeArr] = useState([])
     const [totalArr, setTotalArr] = useState([])
     const [sumIncome, setsumIncome] = useState(0)
     const [sumTotal, setsumTotal] = useState(0)
 
-    const fetchCurrencyData = () => {
-      fetch("https://api.nbp.pl/api/exchangerates/rates/a/eur/2023-12-03/2023-12-31/?format=json")
-        .then(response => {
-            if(response.status >= 400) {
-                throw new Error("Server responds with error!");
-            }
-        return response.json()
-        })
-        .then(data => {
-        setCurrency(data.rates)
-        },
-        err => {
-            console.log(err)
-        })
-    }
-    useEffect(() => {
-      fetchCurrencyData()
-    }, [])
       const fetchEuroRate = () => {
-		    fetch(" https://api.nbp.pl/api/exchangerates/rates/a/eur/?format=json")
+	fetch(" https://api.nbp.pl/api/exchangerates/rates/a/eur/?format=json")
           .then(response => {
           return response.json()
           })
@@ -59,7 +40,6 @@ function Calc({coines,buyArr,sellArr}) {
 //FOR ALL TRANSACTIONS BALANCE
         sumBuy = buyAll.reduce((partialSum, a) => partialSum + +parseInt(a), 0)
         sumSell= sellAll.reduce((partialSum, a) => partialSum + +parseInt(a), 0)
-        //BUY - 38083 SELL - 42431 = 4 348
         let y = countBy(buyArr,'year');
         const years = Object.keys(y);
         if(years.length !== 0) {
@@ -73,11 +53,7 @@ function Calc({coines,buyArr,sellArr}) {
                 />);
             });
         };
-        // sumBuy = buyArr.reduce((partialSum, a) => partialSum + a.q, 0)
-        // sumSell= sellArr.reduce((partialSum, a) => partialSum + a.q, 0)
-        // console.log(sumSell-sumBuy)
-
-
+       
     }
 
     let c = countBy(coines,'coin');
@@ -93,9 +69,6 @@ function Calc({coines,buyArr,sellArr}) {
         setincomeArr(s => [...s, parseInt(data, 10)]);
         setTotalArr(s => [...s, parseInt(total, 10)]);
     }
-
-
-//FOR delete transaction and 0 income
 
     useEffect(() => {
        if(incArr.length>=keys.length*2&&incArr.length>0) {
