@@ -10,7 +10,7 @@ import  UpladJSON from './upload';
 import  SearchBar from './SearchBar';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL||`http://localhost:3001/api/`;
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL||`http://localhost:3001/api`;
 class Notes extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +32,7 @@ class Notes extends React.Component {
         const notes = [...this.state.notes];
         //add to api
         try {
-            const res = await axios.post(`${REACT_APP_BACKEND_URL}notes`, note)
+            const res = await axios.post(`${REACT_APP_BACKEND_URL}/notes`, note)
             const NewCoin = res.data;
             if(Array.isArray(NewCoin)) {
                 Array.prototype.push.apply(notes,NewCoin);
@@ -50,7 +50,7 @@ class Notes extends React.Component {
     async deleteNote(id) {
         try {
         const notes = [...this.state.notes].filter(note => note._id !== id);
-            await axios.delete(`${REACT_APP_BACKEND_URL}notes/${id}`)
+            await axios.delete(`${REACT_APP_BACKEND_URL}/notes/${id}`)
             this.setState({notes})
             this.setState({coins: notes})
         } catch (err) {
@@ -59,7 +59,7 @@ class Notes extends React.Component {
     }
 
     async editNote(note) {
-        await axios.put('${REACT_APP_BACKEND_URL}notes/'+note._id, note)
+        await axios.put('${REACT_APP_BACKEND_URL}/notes/'+note._id, note)
         const notes = [...this.state.notes];
         const index = notes.findIndex(x => x._id === note._id)
         if (index >= 0) {
@@ -83,7 +83,7 @@ class Notes extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
     async fetchNotes() {
-        const res = await axios.get(`${REACT_APP_BACKEND_URL}notes`)
+        const res = await axios.get(`${REACT_APP_BACKEND_URL}/notes`)
         const notes = res.data;
         this.setState({notes});
         this.setState({coins: notes})
