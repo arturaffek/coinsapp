@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Coins from './components/Coins/Coins';
+import Front from './components/Front';
 
 function App() {
   return(
     <div className='App'>
-      <Coins />
+      <Front />
     </div>
   );
 }

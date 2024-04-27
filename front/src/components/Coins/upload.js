@@ -112,7 +112,7 @@ let arr = []
       };
     };
     return (
-      <>
+      <div className="uploadCont">
         <h3>Upload Json orders file</h3>
 
         <label className="custom-file-upload">
@@ -137,6 +137,6 @@ let arr = []
         </div>
         ):(null)}
    
-      </>
+      </div>
     );
   }

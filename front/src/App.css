@@ -2,6 +2,9 @@
 * {
   font-family: 'Lato', sans-serif;
 }
+body {
+  margin: 0px;
+}
 .App {
   text-align: center;
 }
@@ -16,7 +19,21 @@ ul {
 input {
   color: #000;
 }
-
+  .datacont {
+    
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.55s ease;
+  }
+  .showtrue {
+    height: 100%;
+    opacity: 1;
+  }
+  .showfalse {
+    height: 0px;
+    opacity: 0;
+  }
 .formWrapper .formcontent {
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
@@ -33,11 +50,36 @@ input {
 #searchForm {
   margin-bottom: 10px;
 }
+
+.hero {
+  background-image: url('./imgs/data.png');
+  background-repeat: no-repeat;
+  background-position: 100% 0px;
+  height: 80vh;
+  background-size: contain;
+}
+.hero .row {
+  margin: auto;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
 .row {
   width: 1300px;
   flex-direction: row;
   display: flex;
   margin: auto;
+}
+
+.claim {
+  text-align: left;
+}
+.claim h2 {
+  font-size: 45px;
+}
+.claim h4 {
+  font-size: 31px;
 }
 .col-md-6 {
   display: flex;
