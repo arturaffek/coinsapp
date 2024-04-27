@@ -52,16 +52,19 @@ input {
 }
 
 .hero {
-  background-image: url('./imgs/data.png');
-  background-repeat: no-repeat;
-  background-position: 100% 0px;
-  height: 80vh;
+
+  max-height: 80vh;
+  height: 60vh;
   background-size: contain;
 }
 .hero .row {
-  margin: auto;
+  background-image: url('./imgs/data.png');
+  background-repeat: no-repeat;
+  background-position: 100% 0px;
   height: 100%;
+  background-size: contain;
   justify-content: flex-start;
+  margin: 20px auto;
   align-items: flex-end;
 }
 
