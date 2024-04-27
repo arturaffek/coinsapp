@@ -50,13 +50,12 @@ input {
 #searchForm {
   margin-bottom: 10px;
 }
-.claim .cta {
+.hero .cta.disc {
 	margin-bottom: 0
 }
 .hero {
-
   max-height: 80vh;
-  height: 60vh;
+  height: 540px;
   background-size: contain;
 }
 .hero .row {
