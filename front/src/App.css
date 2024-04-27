@@ -50,7 +50,9 @@ input {
 #searchForm {
   margin-bottom: 10px;
 }
-
+.claim .cta {
+	margin-bottom: 0
+}
 .hero {
 
   max-height: 80vh;
@@ -221,7 +223,7 @@ input {
   margin: auto;
   left: 0;
   top: 15px;
-  right: 0
+  right: 35px
 }
 
 ul.rates {
