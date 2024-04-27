@@ -55,7 +55,7 @@ input {
 }
 .hero {
   max-height: 80vh;
-  height: 540px;
+  height: 565px;
   background-size: contain;
 }
 .hero .row {
