@@ -99,7 +99,7 @@ function NewCoin(props) {
     }
 
     return(
-        <div className="col-md-6 ">
+        <div className="col-md-6 newCwrap">
      <div className={showForm==false ? "formWrapper hidd" : "formWrapper"}>
             <div className='formcontent'> 
         <div className='formcont'>

@@ -183,12 +183,37 @@ input {
   position: relative;
   width: 100%;
 }
-
-.bottomu {
-  margin-top: 35px;
-  margin-bottom: 80px;
+.bottomu
+.uploadCont.col-md-6 {
+  flex-direction: row;
+  gap: 45px;
+  align-items: center;
+  justify-content: flex-end;
+  height: 361px;
+  width: 32%;
 }
-
+.uploadCont h3 {
+  position: absolute;
+  width: 92%;
+  top: 66px;
+  text-align: center;
+}
+.bottomu .col-md-6.firstb {
+  width: 370px;
+}
+.bottomu {
+  flex-direction: row;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+}
+.bottomu .col-md-6 {
+  width: auto;
+  justify-content: center;
+  flex-direction: column;
+}
 .formWrapper .formcontent {
   opacity: 1;
 }
@@ -213,17 +238,19 @@ input {
 }
 
 .formWrapper.hidd {
+  pointer-events: none;
   opacity: 0;
   height: 0px;
   z-index: -1;
 }
-.bottomu .cta.mcta{
-  position: absolute;
-  margin: auto;
-  left: 0;
-  top: 15px;
-  right: 35px
+.bottomu .newCwrap {
+  width: 643px;
+  height: 388px;
+  justify-content: flex-start;
+  align-items: center;
 }
+
+
 
 ul.rates {
   position: relative;

@@ -1,8 +1,8 @@
 import React,{ useState, useEffect } from "react";
 import {v4 as uuidv4} from 'uuid';
+import Papa from 'papaparse';
 import * as moment from 'moment'
 export  default function UpladJSON(props) {
-    const [newOrders, setNewOrder] = useState([]);
     const [showDb, setShowDb] = useState(false);
     const [euroRate, seteuroRate] = useState([])
     const addNotes = () => {
@@ -15,8 +15,7 @@ export  default function UpladJSON(props) {
   }
 
   const fetchCurrencyData = (
-    prev, current,
-    date,
+    prev, current, date,
     spotPrice,
     quantity,
     coin,
@@ -56,6 +55,56 @@ let arr = []
 
 //CHECK DUPLICATE TRANSACTION PRICE
 
+    const changeHandler = (e) => { 
+      let jsonArr = [];
+        Papa.parse(e.target.files[0], {
+            header: false,
+            skipEmptyLines: true,
+            dynamicTyping: true,
+
+            complete: function (results) {
+              results.data.splice(0, 2);
+              results.data.forEach(function(e, i) {
+                  if(e[2]=='Sell'||e[2]=='Buy'||e[2]=='Advance Trade Sell'||e[2]=='Advance Trade Buy') {
+                    jsonArr.push(e);
+                              let newDate = moment(new Date(String(e[1]).split(' ')[0])).format('DD.MM.YYYY');
+                              let hdate = newDate.split('.');
+                              let changedate = hdate[2]+'-'+hdate[1]+'-'+hdate[0];
+                              if(hdate[0].length==1) {
+                                changedate = hdate[2]+'-'+hdate[1]+'-0'+hdate[0];
+                            }
+                            let q = new Date(Date.parse(changedate));
+                            q.setDate(q.getDate() - 2);
+                            let vdate = q.toLocaleString().split(',')[0].split('.');
+                            let convertdate = vdate[2]+'-'+vdate[1]+'-'+vdate[0];
+                            if(vdate[0].length==1) {
+                                  convertdate = vdate[2]+'-'+vdate[1]+'-0'+vdate[0];
+                            }
+console.log(e[1])
+                    fetchCurrencyData(
+                        convertdate,
+                        changedate,
+                        newDate,
+                        e[6],
+                        e[4],
+                        e[3],
+                        e[8],
+                        e[5],
+                        e[2],
+                        e[9]
+                      )
+
+                  }
+              });
+              setShowDb(true)
+              console.log(results.data)
+
+
+            },
+          });
+
+      };
+
     const handleChange = e => {
       const fileReader = new FileReader();
       if(e.target.files.length>0) {
@@ -78,10 +127,10 @@ let arr = []
                 });
             });
 
-			      let prices = [];
+		
         for(let i = 0; i < arr.length; i++) {
             let obj = arr[i];
-            prices.push(Number(obj.Total))
+      
             let newDate = obj.hasOwnProperty('Timestamp')?moment(new Date(String(obj.Timestamp).split(' ')[0])).format('DD.MM.YYYY'):obj.date
             let hdate = newDate.split('.');
             let changedate = hdate[2]+'-'+hdate[1]+'-'+hdate[0];
@@ -112,13 +161,22 @@ let arr = []
       };
     };
     return (
-      <div className="uploadCont">
-        <h3>Upload Json orders file</h3>
+      <div className="uploadCont col-md-6">
+        <h3>Upload orders file</h3>
 
         <label className="custom-file-upload">
-          <input type="file" onChange={handleChange} />
+          <input type="file" onChange={handleChange} accept=".json"/>
           Upload JSON file
         </label>
+
+        <label className="custom-file-upload">
+            <input type="file" name="file" accept=".csv" 
+            onChange={changeHandler}
+          />
+          Upload CSV file
+        </label>
+
+
         {showDb ?(
           <div className="uploadOrders">
             <ul key={uuidv4()} className="rates">

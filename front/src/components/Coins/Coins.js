@@ -162,7 +162,7 @@ class Coins extends React.Component {
             <div className={`datacont show${this.props.showData}`}>
 
                 <div className='row bottomu'>
-                <div className='col-md-6'>
+                <div className='col-md-6 firstb'>
                     <Download coins={this.state.coins}/>
                 </div>
                 <UpladJSON 
