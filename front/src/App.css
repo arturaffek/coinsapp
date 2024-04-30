@@ -167,13 +167,15 @@ input {
 .tableBody li:first-child {
   border-left: 1px solid #d6cee7;
 }
-
+.cta2.closecta {
+  margin-left: 25px;
+}
 .trans {
   display: block;
   align-items: center;
   justify-content: center;
   padding: 5px 10px;
-  text-align: center;
+  text-align: left;
   width: auto;
   height: auto;
   font-size: 14px;
@@ -182,6 +184,7 @@ input {
 .uploadOrders {
   position: relative;
   width: 100%;
+  margin-top: 130px;
 }
 .bottomu
 .uploadCont.col-md-6 {
