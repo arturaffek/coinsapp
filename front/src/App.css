@@ -184,7 +184,7 @@ input {
 .uploadOrders {
   position: relative;
   width: 100%;
-  margin-top: 130px;
+  margin-top: 115px;
 }
 .bottomu
 .uploadCont.col-md-6 {
@@ -192,7 +192,7 @@ input {
   gap: 45px;
   align-items: center;
   justify-content: flex-end;
-  height: 361px;
+  height: 380px;
   width: 32%;
 }
 .uploadCont h3 {
