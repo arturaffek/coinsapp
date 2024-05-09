@@ -10,7 +10,7 @@ import  UpladJSON from './upload';
 import  SearchBar from './SearchBar';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL||`http://localhost:3001`;
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL||'http://localhost:3001';
 
 class Coins extends React.Component {
     constructor(props) {
@@ -154,7 +154,8 @@ class Coins extends React.Component {
                             date={this.state.editCoin.date}
                             id={this.state.editCoin._id}
                             plntax={this.state.editCoin.plntax}
-                            onEdit={coin=> this.editCoin(coin)}/>
+                            onEdit={coin=> this.editCoin(coin)}
+                            />
                     <button className='cta disc' onClick={() => this.toggleModal()}>Discard changes</button>
                 </Modal>
 
