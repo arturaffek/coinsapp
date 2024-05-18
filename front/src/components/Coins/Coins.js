@@ -32,7 +32,7 @@ class Coins extends React.Component {
         const coins = [...this.state.coins];
         //add to api
         try {
-            const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/notes`, coin)
+            const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/coins`, coin)
             const NewCoin = res.data;
             if(Array.isArray(NewCoin)) {
                 Array.prototype.push.apply(coins,NewCoin);
@@ -49,7 +49,7 @@ class Coins extends React.Component {
     async deleteCoin(id) {
         try {
         const coins = [...this.state.coins].filter(coin => coin._id !== id);
-            await axios.delete(`${REACT_APP_BACKEND_URL}/api/notes/${id}`)
+            await axios.delete(`${REACT_APP_BACKEND_URL}/api/coins/${id}`)
             this.setState({coins})
         } catch (err) {
             NotificationManager.error(err.response.data.message);
@@ -57,7 +57,7 @@ class Coins extends React.Component {
     }
 
     async editCoin(coin) {
-        await axios.put('${REACT_APP_BACKEND_URL}/api/notes/'+coin._id, coin)
+        await axios.put(`${REACT_APP_BACKEND_URL}/api/coins/`+coin._id, coin)
         const coins = [...this.state.coins];
         const index = coins.findIndex(x => x._id === coin._id)
         if (index >= 0) {
@@ -67,7 +67,7 @@ class Coins extends React.Component {
         }
             this.toggleModal()       
     }
-    editNoteHandler(coin) {
+    editCoinHandler(coin) {
         this.toggleModal();
         this.setState({ editCoin: coin });
       }
@@ -81,7 +81,7 @@ class Coins extends React.Component {
         this.setState({showModal: !this.state.showModal})
     }
     async fetchCoins() {
-        const res = await axios.get(`${REACT_APP_BACKEND_URL}/api/notes`)
+        const res = await axios.get(`${REACT_APP_BACKEND_URL}/api/coins`)
         const coins = res.data;
         this.setState({coins});
     }
@@ -129,7 +129,7 @@ class Coins extends React.Component {
                     price={o.price}
                     date={o.date}
                     plnTax={o.plntax}
-                    onEdit={(coin) => this.editNoteHandler(coin)}
+                    onEdit={(coin) => this.editCoinHandler(coin)}
                     onDelete={(id) => this.deleteCoin(id)}
                     taxArr={this.taxArrCalc}
                 />);

@@ -1,4 +1,5 @@
 import Coins from './Coins/Coins';
+import withLoading from './hocs/withLoading';
 import React from 'react';
 
 class Front extends React.Component {
@@ -19,13 +20,16 @@ class Front extends React.Component {
               <div className="hero"> 
               <div className="row"> 
                 <div className="claim">
-                    <h2>Keep your<br/> coins organized.</h2>
-                    <h4>and calculate your tax</h4>
+                    <h2>Keep your<br/> crypto organized</h2>
+                    <h4>and calculate your tax.</h4>
                     <button className='cta disc' onClick={() => this.toggleData()}>{this.state.btnText}</button>
                 </div>
                 </div>
                 </div>
-                  <Coins showData={this.state.showData}/>
+                <withLoading>
+                    <Coins showData={this.state.showData}/>
+                </withLoading>
+
             </div>
         )
     }

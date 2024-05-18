@@ -17,5 +17,5 @@ app.use('/api/', apiRouter)
 
 //server
 app.listen(port, function() {
-    console.log('serwer słucha... http://localhost:'+port)
+    console.log('serwer '+port)
 })

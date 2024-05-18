@@ -5,14 +5,14 @@ const coinsContollers = require('../controllers/api/coinsController')
 
 // ENDPOINTS USES IN FRONT WITH AXIOS
 
-router.get('/notes', coinsContollers.getAllNotes)
+router.get('/coins', coinsContollers.getAllCoins)
 
-router.get('/notes/:id', coinsContollers.getNote)
+router.get('/coins/:id', coinsContollers.getCoin)
 
-router.post('/notes', coinsContollers.saveNote)
+router.post('/coins', coinsContollers.saveCoin)
 
-router.put('/notes/:id', coinsContollers.updateNote)
+router.put('/coins/:id', coinsContollers.updateCoin)
 
-router.delete('/notes/:id', coinsContollers.deleteNote)
+router.delete('/coins/:id', coinsContollers.deleteCoin)
 
 module.exports = router

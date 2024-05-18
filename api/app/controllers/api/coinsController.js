@@ -1,7 +1,7 @@
 const Coin = require('../../models/coin')
 
 class CoinsController {
-   async saveNote(req,res) {
+   async saveCoin(req,res) {
         const coin = req.body.coin,
         type = req.body.type,
         spotPrice= req.body.spotPrice,
@@ -9,35 +9,35 @@ class CoinsController {
         price = req.body.price,
         date = req.body.date,
         plntax = +req.body.plntax;
-        let note;
+        let coine;
         if(Array.isArray(req.body)) {
             try {
                 const newmods = req.body.map(dataObj => {
                     return new Coin(dataObj);
                   });
-                  note = newmods;
+                  coine = newmods;
                   await Coin.insertMany(newmods);
             } catch (err) {
                 return res.status(422).json({message: err.message})
             }
         } else {
             try {
-                note = new Coin({coin,type,spotPrice,quantity,price,date,plntax});
-                await note.save();
+                coine = new Coin({coin,type,spotPrice,quantity,price,date,plntax});
+                await coine.save();
             } catch (err) {
                 return res.status(422).json({message: err.message})
             }
         }
-        res.status(201).json(note)
+        res.status(201).json(coine)
     }
 
 
-    getAllNotes(req,res) {
+    getAllCoins(req,res) {
         Coin.find().then((data) => {
             res.status(200).json(data)
            })
     }
-    getNote(req,res) {
+    getCoin(req,res) {
         const id = req.params.id;
         Coin.findById(id)
         .then((doc)=>{
@@ -47,7 +47,7 @@ class CoinsController {
             console.log(err);
         });
     }
-    async updateNote(req,res) {
+    async updateCoin(req,res) {
         const id = req.params.id,
         coin = req.body.coin,
         type = req.body.type,
@@ -56,20 +56,20 @@ class CoinsController {
         price = req.body.price,
         date = req.body.date,
         plntax = req.body.plntax,
-        note = await Coin.findById(id);
-        note.coin = coin;
-        note.type = type;
-        note.spotPrice = spotPrice;
-        note.quantity = quantity;
-        note.price = price;
-        note.date = date;
-        note.plntax = plntax;
-        note.save().then((data) => {
+        coine = await Coin.findById(id);
+        coine.coin = coin;
+        coine.type = type;
+        coine.spotPrice = spotPrice;
+        coine.quantity = quantity;
+        coine.price = price;
+        coine.date = date;
+        coine.plntax = plntax;
+        coine.save().then((data) => {
             res.status(201).json(data)
            })
     }
 
-     deleteNote(req,res) {
+     deleteCoin(req,res) {
         const id = req.params.id;
         Coin.deleteOne({ _id: id })
         .then(()=>{
