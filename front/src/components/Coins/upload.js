@@ -5,9 +5,10 @@ import * as moment from 'moment'
 export  default function UpladJSON(props) {
     const [showDb, setShowDb] = useState(false);
     const [euroRate, seteuroRate] = useState([])
+
     const addNotes = () => {
-      const note = euroRate;
-      props.onAdds(note);
+      const coins = euroRate;
+      props.onAdds(coins);
   }
   const closeForm = () => {
     seteuroRate([]);
@@ -22,8 +23,6 @@ export  default function UpladJSON(props) {
     price,
     currency,
     type) => {
-    // https://api.nbp.pl/api/exchangerates/rates/a/eur/2024-02-25/2024-02-27/?format=json
-
     fetch(`https://api.nbp.pl/api/exchangerates/rates/a/eur/${prev}/${current}/?format=json`)
       .then(response => {
           if(response.status >= 400) {
@@ -54,7 +53,6 @@ export  default function UpladJSON(props) {
 let arr = []
 
 //CHECK DUPLICATE TRANSACTION PRICE
-
     const changeHandler = (e) => { 
       let jsonArr = [];
         Papa.parse(e.target.files[0], {
@@ -80,7 +78,6 @@ let arr = []
                             if(vdate[0].length==1) {
                                   convertdate = vdate[2]+'-'+vdate[1]+'-0'+vdate[0];
                             }
-console.log(e[1])
                     fetchCurrencyData(
                         convertdate,
                         changedate,
@@ -97,9 +94,6 @@ console.log(e[1])
                   }
               });
               setShowDb(true)
-              console.log(results.data)
-
-
             },
           });
 
@@ -126,11 +120,8 @@ console.log(e[1])
                 arr[i][nK] = val;
                 });
             });
-
-		
         for(let i = 0; i < arr.length; i++) {
             let obj = arr[i];
-      
             let newDate = obj.hasOwnProperty('Timestamp')?moment(new Date(String(obj.Timestamp).split(' ')[0])).format('DD.MM.YYYY'):obj.date
             let hdate = newDate.split('.');
             let changedate = hdate[2]+'-'+hdate[1]+'-'+hdate[0];
