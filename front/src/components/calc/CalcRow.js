@@ -82,7 +82,7 @@ const fetchSpotPrice = (val) => {
             </div>
             </div>
             ):(null)}
-            {allpricbtcSell.length>1 ?(
+            {allpricbtcSell.length>0 ?(
             <div>
             <h3>SELL</h3>
             <div className='tableCapitions'>

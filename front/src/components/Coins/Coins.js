@@ -28,12 +28,10 @@ class Coins extends React.Component {
          this.setState({ filterText: text });
       }
 
-    async addCoin(coin) {
+      async addCoin1(coin) {
         const coins = [...this.state.coins];
-        //add to api
-        try {
-            const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/coins`, coin)
-            const NewCoin = res.data;
+        const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/coins`, coin)
+        const NewCoin = res.data;
             if(Array.isArray(NewCoin)) {
                 Array.prototype.push.apply(coins,NewCoin);
                 this.setState({coins})
@@ -41,9 +39,22 @@ class Coins extends React.Component {
                 coins.push(NewCoin);
             }
             this.setState({coins})
-        } catch (err) {
-            NotificationManager.error(err.response.data.message);
-        }
+    }
+    async addCoin(coin) {
+        const name = coin.coin
+            fetch(`https://api.coinbase.com/v2/prices/${name}-EUR/spot`)
+            .then(response => {
+                if(response.status >= 400) {
+                    throw new Error("Server responds with error!");
+                }
+            return response.json()
+            })
+            .then(() => {
+                this.addCoin1(coin)
+              },
+              err => {
+                NotificationManager.error("Wrong coin name");
+            })
     }
 
     async deleteCoin(id) {
@@ -134,13 +145,9 @@ class Coins extends React.Component {
                     taxArr={this.taxArrCalc}
                 />);
         });
-
-
-        
         return (
             <div>
                 <NotificationContainer/>
-
                 <Modal
                     ariaHideApp={false}
                         isOpen={this.state.showModal}
@@ -159,7 +166,6 @@ class Coins extends React.Component {
                     <button className='cta disc' onClick={() => this.toggleModal()}>Discard changes</button>
                 </Modal>
 
-       
             <div className={`datacont show${this.props.showData}`}>
 
                 <div className='row bottomu'>
@@ -167,8 +173,8 @@ class Coins extends React.Component {
                     <Download coins={this.state.coins}/>
                 </div>
                 <UpladJSON 
-                onAdds={(c)=> this.addCoin(c)}/>
-                    <NewCoin
+                onAdds={(c)=> this.addCoin1(c)}/>
+                <NewCoin
                         onAdd={(c)=> this.addCoin(c)}/>
                 </div>
                 <div className='row'>
@@ -213,4 +219,4 @@ class Coins extends React.Component {
     }
 }
 
-export default Coins;
+export default Coins = React.memo(Coins) ;

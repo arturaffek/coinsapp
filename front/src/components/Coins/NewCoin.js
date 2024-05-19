@@ -61,10 +61,6 @@ function NewCoin(props) {
         return  (vdate[0].length==1)?vdate[2]+'-'+vdate[1]+'-0'+vdate[0]:vdate[2]+'-'+vdate[1]+'-'+vdate[0];
     }
 
-
-// http://api.nbp.pl/api/exchangerates/rates/a/gbp/2012-01-01/2012-01-31/
-
-
     const fetchCurrencyData = (prev, current) => {
         fetch(`https://api.nbp.pl/api/exchangerates/rates/a/eur/${prev}/${current}/?format=json`)
           .then(response => {

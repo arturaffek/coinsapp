@@ -1,5 +1,4 @@
 import Coins from './Coins/Coins';
-import withLoading from './hocs/withLoading';
 import React from 'react';
 
 class Front extends React.Component {
@@ -26,13 +25,9 @@ class Front extends React.Component {
                 </div>
                 </div>
                 </div>
-                <withLoading>
                     <Coins showData={this.state.showData}/>
-                </withLoading>
-
             </div>
         )
     }
 }
-
 export default Front;

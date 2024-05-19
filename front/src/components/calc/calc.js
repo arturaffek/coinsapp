@@ -1,7 +1,6 @@
 import React,{ useState, useEffect } from "react";
 import  CalcRow from './CalcRow';
 import  YearRow from './yearRow';
-import Charts  from "../charts/chart";
 
 function Calc({coines,buyArr,sellArr}) {
     const [euro, setEuro] = useState([])
@@ -26,7 +25,7 @@ function Calc({coines,buyArr,sellArr}) {
     const countBy = (arr, prop) => arr.reduce((prev, curr) => (prev[curr[prop]] = ++prev[curr[prop]] || 1, prev), {});
     function sum(ar) { return ar.reduce((a, b) => Number(a) + Number(b), 0) }
 
-    let buyAll =[], sellAll =[], sumSell, sumBuy, yearRows =[];
+    let buyAll =[], sellAll =[],yearRows =[];
 
     coines.forEach((coin, i) => {
         if(coin.type.includes('Buy')) {
@@ -37,9 +36,6 @@ function Calc({coines,buyArr,sellArr}) {
     });
 
     if(buyArr) {
-//FOR ALL TRANSACTIONS BALANCE
-        sumBuy = buyAll.reduce((partialSum, a) => partialSum + +parseInt(a), 0)
-        sumSell= sellAll.reduce((partialSum, a) => partialSum + +parseInt(a), 0)
         let y = countBy(buyArr,'year');
         const years = Object.keys(y);
         if(years.length !== 0) {
@@ -53,7 +49,6 @@ function Calc({coines,buyArr,sellArr}) {
                 />);
             });
         };
-       
     }
 
     let c = countBy(coines,'coin');
@@ -61,10 +56,6 @@ function Calc({coines,buyArr,sellArr}) {
     const keys = Object.keys(c);
     const plnIncome = (sumIncome*euro).toFixed(2);
     const plnSumTotal = (sumTotal*euro).toFixed(2);
-
-    // const fetchIncome = (data) => {
-    //     setincomeArr(s => [...s, data]);
-    // }
     let fetchIncome = (data,total) => {
         setincomeArr(s => [...s, parseInt(data, 10)]);
         setTotalArr(s => [...s, parseInt(total, 10)]);
@@ -109,9 +100,9 @@ function Calc({coines,buyArr,sellArr}) {
             <h2>BALANCE FOR TAX</h2>
             {yearRows}
             <h2>BALANCE FOR ALL</h2>
-            <h3>SUM BUY: {sumBuy} €</h3>
-            <h3>SUM SELL: {sumSell} €</h3>
-            <h3>BALANCE: {sumSell-sumBuy} €</h3>
+            <h3>SUM BUY: {sum(buyAll)} €</h3>
+            <h3>SUM SELL: {sum(sellAll)} €</h3>
+            <h3>BALANCE: {sum(sellAll)-sum(buyAll)} €</h3>
         </div>
     );
 }
