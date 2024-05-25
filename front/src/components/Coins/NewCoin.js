@@ -42,7 +42,7 @@ function NewCoin(props) {
     }
     const changeP = (quantity,spot) => {
         const val = quantity*spot;
-        if(val>0)setPrice(val)
+        (val>0)?setPrice(val):setPrice('')
     }
     const changeD = (val) => {
         const dateParts = val.split("-");
