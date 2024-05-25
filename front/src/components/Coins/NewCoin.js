@@ -32,15 +32,17 @@ function NewCoin(props) {
     }
     const changeSpot = e => {
         const val = e.target.value;
+        changeP(quantity,val)
         setSpotPrice(val)
     }
     const changeQ = e => {
         const val = e.target.value;
+        changeP(val,spotPrice)
         setQuantity(val)
     }
-    const changeP = e => {
-        const val = e.target.value;
-        setPrice(val)
+    const changeP = (quantity,spot) => {
+        const val = quantity*spot;
+        if(val>0)setPrice(val)
     }
     const changeD = (val) => {
         const dateParts = val.split("-");

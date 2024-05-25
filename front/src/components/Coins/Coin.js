@@ -21,7 +21,7 @@ function Coin(props) {
     <ul key={props.id}>
         <li>{props.coin}</li>
         <li>{props.type}</li>
-        <li>{(Number(props.quantity)>1000)?Number(props.quantity):Number(props.quantity).toFixed(4)}</li>
+        <li>{(Number(props.quantity)>1000)?Number(props.quantity):Number(props.quantity).toFixed(2)}</li>
         <li>{props.price}</li>
         <li>{props.spotPrice}</li>
         <li>{props.date}</li>

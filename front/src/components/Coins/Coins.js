@@ -28,7 +28,7 @@ class Coins extends React.Component {
          this.setState({ filterText: text });
       }
 
-      async addCoin1(coin) {
+      async addCoinToApi(coin) {
         const coins = [...this.state.coins];
         const res = await axios.post(`${REACT_APP_BACKEND_URL}/api/coins`, coin)
         const NewCoin = res.data;
@@ -50,7 +50,7 @@ class Coins extends React.Component {
             return response.json()
             })
             .then(() => {
-                this.addCoin1(coin)
+                (coin.spotPrice!=''&&coin.coin!=''&&coin.quantity)?this.addCoinToApi(coin):NotificationManager.error("Please fill all fields")
               },
               err => {
                 NotificationManager.error("Wrong coin name");
@@ -173,7 +173,7 @@ class Coins extends React.Component {
                     <Download coins={this.state.coins}/>
                 </div>
                 <UpladJSON 
-                onAdds={(c)=> this.addCoin1(c)}/>
+                onAdds={(c)=> this.addCoinToApi(c)}/>
                 <NewCoin
                         onAdd={(c)=> this.addCoin(c)}/>
                 </div>
