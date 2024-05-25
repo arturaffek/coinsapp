@@ -136,7 +136,7 @@ function NewCoin(props) {
          </div>
          <div className='col-md-3 fcon'>
             <label>Price:</label>
-                <input type='number'
+                <input disabled type='number'
                     value={price}
                     onChange={changeP}
                     ></input>
