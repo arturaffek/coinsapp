@@ -1,9 +1,7 @@
-import React,{ useState, useEffect } from "react";
-
+import React from "react";
 
 function Coin(props) {
-    const [euro, setEuro] = useState([])
-
+    
     const editHandler = () => {
         props.onEdit({
             coin: props.coin,

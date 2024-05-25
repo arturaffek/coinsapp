@@ -1,4 +1,4 @@
-import React from 'react';
+import {React} from 'react';
 import Coin from './Coin';
 import axios from 'axios';
 import Modal from 'react-modal';
