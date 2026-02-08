@@ -5,12 +5,12 @@ import  { CoinsArr }  from './MyContext';
 function Front() {
     const [coinsArr, setcoinsArr] = useState([]);
     const [showData, setshowData] = useState(false);
-    const [btnText, setbtnText] = useState('Show sample data');
 
     const toggleData= () => {
         setshowData(!showData)
-        setbtnText(showData ? 'Show sample data': 'Hide sample data')
     }
+
+    const btnText = showData ? 'Hide sample data' : 'Show sample data';
 
     return (
         <div>
