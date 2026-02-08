@@ -40,4 +40,4 @@ function Coin(props) {
     );
 }
 
-export default Coin
+export default React.memo(Coin);
