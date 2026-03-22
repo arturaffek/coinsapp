@@ -29,13 +29,8 @@ const coinApi = {
     validateAndAddCoin: async (coin) => {
         const name = coin.coin;
         try {
-            const response = await fetch(`https://api.coinbase.com/v2/prices/${name}-EUR/spot`);
-            if (!response.ok) {
-                if (response.status >= 400) {
-                    throw new Error("Server responds with error!");
-                }
-            }
-            await response.json(); // Consume the response body even if not directly used
+            await axios.get(`https://api.coinbase.com/v2/prices/${name}-EUR/spot`);
+            
             if (coin.spotPrice !== '' && coin.coin !== '' && coin.quantity) {
                 return coinApi.addCoinToApi(coin);
             } else {
@@ -43,8 +38,10 @@ const coinApi = {
                 throw new Error("Missing coin fields");
             }
         } catch (err) {
-            if (err.message === "Server responds with error!") {
+            if (err.response && err.response.status >= 400) {
                 NotificationManager.error("Wrong coin name");
+            } else if (err.message === "Missing coin fields") {
+                // Already notified
             } else {
                 NotificationManager.error("An error occurred while validating coin.");
             }

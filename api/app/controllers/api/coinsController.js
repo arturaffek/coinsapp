@@ -1,83 +1,77 @@
 const Coin = require('../../models/coin')
 
 class CoinsController {
-   async saveCoin(req,res) {
-        const coin = req.body.coin,
-        type = req.body.type,
-        spotPrice= req.body.spotPrice,
-        quantity = req.body.quantity,
-        price = req.body.price,
-        date = req.body.date,
-        plntax = +req.body.plntax;
+    async saveCoin(req, res) {
         let coine;
-        if(Array.isArray(req.body)) {
+        if (Array.isArray(req.body)) {
             try {
-                const newmods = req.body.map(dataObj => {
-                    return new Coin(dataObj);
-                  });
-                  coine = newmods;
-                  await Coin.insertMany(newmods);
+                const newmods = req.body.map(dataObj => new Coin(dataObj));
+                coine = newmods;
+                await Coin.insertMany(newmods);
             } catch (err) {
-                return res.status(422).json({message: err.message})
+                return res.status(422).json({ message: err.message })
             }
         } else {
             try {
-                coine = new Coin({coin,type,spotPrice,quantity,price,date,plntax});
+                const { coin, type, spotPrice, quantity, price, date, plntax } = req.body;
+                coine = new Coin({ coin, type, spotPrice, quantity, price, date, plntax: +plntax });
                 await coine.save();
             } catch (err) {
-                return res.status(422).json({message: err.message})
+                return res.status(422).json({ message: err.message })
             }
         }
         res.status(201).json(coine)
     }
 
-
-    getAllCoins(req,res) {
-        Coin.find().then((data) => {
-            res.status(200).json(data)
-           })
-    }
-    getCoin(req,res) {
-        const id = req.params.id;
-        Coin.findById(id)
-        .then((doc)=>{
-            res.status(200).json(doc)
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-    }
-    async updateCoin(req,res) {
-        const id = req.params.id,
-        coin = req.body.coin,
-        type = req.body.type,
-        spotPrice= req.body.spotPrice,
-        quantity = req.body.quantity,
-        price = req.body.price,
-        date = req.body.date,
-        plntax = req.body.plntax,
-        coine = await Coin.findById(id);
-        coine.coin = coin;
-        coine.type = type;
-        coine.spotPrice = spotPrice;
-        coine.quantity = quantity;
-        coine.price = price;
-        coine.date = date;
-        coine.plntax = plntax;
-        coine.save().then((data) => {
-            res.status(201).json(data)
-           })
+    async getAllCoins(req, res) {
+        try {
+            const data = await Coin.find();
+            res.status(200).json(data);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     }
 
-     deleteCoin(req,res) {
-        const id = req.params.id;
-        Coin.deleteOne({ _id: id })
-        .then(()=>{
-            res.status(204).send()
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
+    async getCoin(req, res) {
+        try {
+            const id = req.params.id;
+            const doc = await Coin.findById(id);
+            if (!doc) {
+                return res.status(404).json({ message: 'Coin not found' });
+            }
+            res.status(200).json(doc);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    async updateCoin(req, res) {
+        try {
+            const id = req.params.id;
+            const updateData = { ...req.body };
+            if (updateData.plntax) updateData.plntax = +updateData.plntax;
+
+            const coine = await Coin.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
+            if (!coine) {
+                return res.status(404).json({ message: 'Coin not found' });
+            }
+            res.status(201).json(coine);
+        } catch (err) {
+            res.status(422).json({ message: err.message });
+        }
+    }
+
+    async deleteCoin(req, res) {
+        try {
+            const id = req.params.id;
+            const result = await Coin.deleteOne({ _id: id });
+            if (result.deletedCount === 0) {
+                return res.status(404).json({ message: 'Coin not found' });
+            }
+            res.status(204).send();
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     }
 
 }
