@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 function Coin(props) {
     
@@ -39,5 +40,18 @@ function Coin(props) {
     </ul>
     );
 }
+
+Coin.propTypes = {
+    id: PropTypes.string.isRequired,
+    coin: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    spotPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    date: PropTypes.string.isRequired,
+    plnTax: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired
+};
 
 export default React.memo(Coin);
